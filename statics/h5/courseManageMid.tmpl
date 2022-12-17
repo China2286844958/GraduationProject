@@ -1,0 +1,1 @@
+{{/* 数据显示*/}} {{/*C_id int*/}} {{/*C_name string*/}} {{/*C_teach string*/}} {{/*C_Tscore float32*/}} <tr> <td>{{.c.C_name}}</td> <td>{{.c.C_teach}}</td> <td> <input type="button" value="删除课程" onclick="DiyConfirm('是否删除该课程?','/User/deleteCourse?id={{.id}}&loginCode={{.loginCode}}&delId={{.c.C_id}}')"> </td> </tr>

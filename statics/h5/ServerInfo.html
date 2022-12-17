@@ -1,0 +1,26 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>ServerInfo</title> {{/* logo图片*/}} <link rel="shortcut icon" href="/img/icon.ico"> {{/* 引入公用JS*/}} <script src="../js/Public.js"></script> <style>
+
+        .show_index h2,a{
+            color: black;
+            margin-top: 60px;
+            color: rgba(255, 0, 0, 0.73);
+        }
+        .show_index{
+            margin-left: 400px;
+        }
+        #dev_doc{
+            margin-bottom: 300px;
+            text-decoration: blink;
+        }
+
+        strong{
+            color:black ;
+        }
+
+        body{
+            background: url("/img/btnBgi.png") 0 0 no-repeat;
+            background-size: 1700px 1000px;
+        }
+    </style> </head> <body> <div class="show_index"> <h2>本机核心数:&nbsp;<strong>{{.CPU_Cores}}</strong></h2> <h2>服务器占用核心数:&nbsp;<strong>{{.Running_Cores}}</strong></h2> <h2>SQL优化:&nbsp;<strong>{{.SQL_optimize}}</strong></h2> <h2>服务器地址:&nbsp;<strong>{{.Localhost}}</strong></h2> <h2>服务器端口:&nbsp;<strong>{{.ServerPort}}</strong></h2><br><br> <a id="dev_doc" href="{{.wps_doc}}" target="_blank"><STRONG>网站开发详情</STRONG></a> </div> <br><br><br> <footer> <div id="JS_Footer"></div> </footer> <script type="application/javascript">
+    JsAddFooter("180px", "auto", "100px");
+</script> </body> </html>

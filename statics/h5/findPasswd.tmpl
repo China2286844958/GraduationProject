@@ -1,0 +1,48 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>学生-找回密码</title> {{/* logo图片*/}} <link rel="shortcut icon" href="/img/icon.ico"> <link rel="stylesheet" href="/views/findPasswd.css"> {{/* 引入公用JS*/}} <script src="../js/Public.js"></script> </head> <body> <div class="resetPasswd"> <form method="post" action="/User/resetPasswd/{{.emailValue}}/{{.token}}" onsubmit="return flag"> <label>重置的邮箱:<strong style="color: red">*</strong></label> <input type="email" placeholder="重置的邮箱" id="resetEmail" value="{{.emailValue}}"> <button id="sendEmailOnSession" onclick="SendEmail(60,'sendEmailOnSession','resetEmail')" type="button" title="验证码不区分大小写">发送验证码 </button> <br> <label>邮箱验证码:<strong style="color: red">*</strong></label> <input placeholder="发送的验证码" id="recdCaptcha" name="recdCaptcha"> <br> <label>重置的密码:<strong style="color: red">*</strong></label> <input type="password" id="NewPasswd1" name="NewPasswd1" placeholder="4到30位的数字英文组合"><br> <label>再次的确认:<strong style="color: red">*</strong></label> <input type="password" id="NewPasswd2" name="NewPasswd2" placeholder="与第一次密码一致"><br> <div> <strong style="color:red">&nbsp;{{.ShowLog}}</strong> </div> <div class="btn_all"> <button id="btn_submit" onclick="beforeSubmit('resetEmail','recdCaptcha','NewPasswd1','NewPasswd2')">提交</button> <button id="btn_back" onclick=Back()>返回</button> </div> </form> </div> <br><br><br> <footer> <div id="JS_Footer"></div> </footer> <script type="application/javascript">
+    JsAddFooter("180px", "auto", "60px");
+</script> </body> <script src="../js/tools.js"></script> <script src="/js/Public.js"></script> <script src="/js/tools.js"></script> <script src="/js/RegExp.js"></script> {{/*内部JS代码*/}} <script type="application/javascript">
+    /**
+     * 返回
+     * @constructor
+     */
+    function Back() {
+        SetFlagFalse();
+        window.location.href = "/User/login";
+    }
+    /**
+     *提交事件之前
+     * @param emailInEid 邮箱元素id
+     * @param captchaEid 验证码元素id
+     * @param resetPasswd1Eid 第一次重置的密码元素ID
+     * @param resetPasswd2Eid  第二次重置的密码元素ID
+     */
+    var flag = true;
+
+    function SetFlagFalse() {
+        flag = false;
+    }
+
+    function beforeSubmit(emailInEid, captchaEid, resetPasswd1Eid, resetPasswd2Eid) {
+        var emailIn = document.getElementById(emailInEid).value;//用户输入的邮箱
+        var captchaIn = document.getElementById(captchaEid).value;//用户输入的验证码
+        var resetPasswd1In = document.getElementById(resetPasswd1Eid).value;//用户第一次输入的密码
+        var resetPasswd2In = document.getElementById(resetPasswd2Eid).value;//用户第二次输入的密码
+        //一、先对信息进行简单的检测:判断为空
+        if (isEmptyStr(emailIn) || isEmptyStr(captchaIn) || isEmptyStr(resetPasswd1In) || isEmptyStr(resetPasswd2In)) {
+            alert("请填写完整的信息");
+            SetFlagFalse();
+            return;
+        }
+        //校验第一次密码的位数:小于4 或者大于30
+        if (resetPasswd1In.length < 4 || resetPasswd1In.length > 30) {
+            alert("密码不符合4到30位的要求!");
+            SetFlagFalse();
+            return;
+        }
+        //当第一次密码和第二次密码不一致时
+        if (resetPasswd1In != resetPasswd2In) {
+            alert("第一次密码与第二次密码不一致!");
+            SetFlagFalse();
+        }
+    }
+</script> </html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>{{.title}}</title> {{/* logo图片*/}} <link rel="shortcut icon" href="/img/icon.ico"> {{/* 引入公用JS*/}} <script src="../js/Public.js"></script> <style>
+
+        body{
+            /*background-image: url("/img/formBg.jpg");*/
+            background-color: deepskyblue;
+            background-size: 1600px 1000px;
+            background-repeat: no-repeat;
+
+        }
+        section{
+
+            width: 500px;
+            color: red;
+            margin-left: 400px;
+            margin-top: 100px;
+            font-size: 30px;
+        }
+        button{
+            font-size: 24px;
+            background:cyan;
+            width: 200px;
+            height: 50px;
+            border-radius: 20%;
+
+        }
+
+    </style> </head> <body> <section id="message"> <h1>{{.title}}</h1> <button id="btn" type="button" onclick="ReLocation('{{.url}}')">{{.BtnName}}</button> </section> {{/* footer*/}} <footer> <div id="JS_Footer"></div> </footer> <script type="application/javascript">
+            JsAddFooter("180px", "auto", "260px");
+        </script> <script src="../js/Public.js"></script> <script src="/js/Public.js"></script> </body> <script type="application/javascript">
+
+
+    /**
+     * 在一定时间内自动跳转
+     */
+    function autoHrefByTime(){
+    //
+        var p = document.createElement("p");
+        var section = document.getElementById("message");
+        var time=5;
+        var interval = setInterval(function (){
+            if(time<=0){
+                clearInterval(interval);
+                var btn = document.getElementById("btn");
+                btn.click();
+            }
+            //当时间超时，消除定时器
+            p.innerHTML=time+"秒后自动跳转"
+            section.appendChild(p);
+        time--;
+        },1000);
+
+
+    }
+    autoHrefByTime();
+
+</script> </html> {{/*================模版=======================*/}} {{/* c.HTML(http.StatusOK, "Message.tmpl", gin.H{ "title": "注册成功", //显示的标题 "url": "/User/login", //按钮按下后，跳转的页面url,back代表返回上一历史 "BtnName": "返回登录", //按钮显示的名字 }) */}}

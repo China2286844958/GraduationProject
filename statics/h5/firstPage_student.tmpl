@@ -1,0 +1,40 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>首页</title> <link id="who_css" rel="stylesheet" href="/views/firstPage_student.css"> {{/* logo图片*/}} <link rel="shortcut icon" href="/img/icon.ico"> <script src="../js/echarts.min.js"></script> <script src="../js/Public.js"></script> </head> <body> <header class="userHeader"> <h1>学生选课系统</h1> </header> <div class="Div_hr"> <hr style="color:red;" id="hr_"> </div> {{/*<!-主体内容--->*/}} <section class="userMain"> <div class="leftDiv"> <h2> <span class="h2Main">○功能列表○</span> <span></span> </h2> <nav> <ul class="list"> <li> <a href="/User/firstPage?who=student&id={{.id}}&loginCode={{.loginCode}}">首页</a> </li> <li> <a href="/User/studentIndex?id={{.id}}&loginCode={{.loginCode}}">学生界面</a> </li> <li> <a href="/User/myCourse?id={{.id}}&loginCode={{.loginCode}}">我的课程</a> </li> <li> <a href="/User/updatePasswd?id={{.id}}&loginCode={{.loginCode}}">修改密码</a> </li> <li> <a href="/User/studentExit?exitId={{.id}}">退出登录</a> </li> </ul> </nav> </div> <div class="rightDiv"> <div class="searchDiv"> <div class="location"> <strong>当前页面:</strong> <span>首页</span> </div> <div id="div_main" style="width: auto;height: 450px"> <div id="main" style="width:{{.size}}px;height: 450px;margin-top: 20px"> <script>
+                        // var echarts = require('echarts');
+                        document.getElementById('main').setAttribute('_echarts_instance_', '')
+
+                        // 基于准备好的dom，初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('main'));
+
+                        // 指定图表的配置项和数据
+                        var option = {
+                            title: {
+                                text: '课程分数最值'
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: ['最高分', '最低分']
+                            },
+                            xAxis: {
+                                data:  {{.courseNameList}}
+                            },
+                            yAxis: {},
+                            series: [
+                                {
+                                    name: '最高分',
+                                    type: 'bar',
+                                    data: {{.maxScoreList}}
+                                },
+                                {
+                                    name: '最低分',
+                                    type: 'bar',
+                                    data: {{.mixScoreList}}
+                                }
+
+                            ]
+                        };
+
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option, true);
+                    </script> </div> </div> </div> </div> </section> <br><br><br> <footer> <div id="JS_Footer"></div> </footer> <script type="application/javascript">
+    JsAddFooter("180px", "auto", "60px");
+</script> </body> </html>
